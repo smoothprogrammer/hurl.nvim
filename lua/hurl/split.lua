@@ -44,8 +44,9 @@ M.show = function(data, type)
 
 		-- Add request information
 		local response_time = tonumber(data.response_time) or 0
-		table.insert(output_lines, string.format('Status: %s  Time: %.2f ms', data.status or 'N/A', response_time))
-		table.insert(output_lines, string.format('%s %s', data.method or 'Method: N/A', data.url or 'Url: N/A'))
+		table.insert(output_lines,
+			string.format('Method: %s\tStatus: %s\tTime: %.2f ms', data.method or 'Method: N/A', data.status or 'N/A',
+				response_time))
 		table.insert(output_lines, '')
 
 		-- Add headers
@@ -58,7 +59,7 @@ M.show = function(data, type)
 		end
 
 		-- Add body
-		table.insert(output_lines, '```' .. type)
+		table.insert(output_lines, '')
 		local content = utils.format(data.body, type)
 		if content then
 			for _, line in ipairs(content) do
